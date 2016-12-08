@@ -47,7 +47,11 @@ for (var i = 0; i < directionsArray.length; i++){
 			for (var w = 0; w < historyz.length;w++){
 				if(historyz[w].lat === x){
 					if (historyz[w].long === y){
-						console.log("Found!"+x+' '+ y);
+						var locationFound = x+y;
+						if (locationFound < 0){
+							locationFound +=-locationFound+-locationFound;
+						}
+						console.log("Found! The location is "+locationFound+' blocks away!');
 						found = 1;
 					}
 				}
