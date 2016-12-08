@@ -6,3 +6,32 @@ var instructionArray = instructions.split(',');
 var keypad = [[1,2,3],
 			  [4,5,6],
 			  [7,8,9]];
+
+var keypad2 = [[1],
+			 [2,3,4],
+		   [5,6,7,8,9],
+		  ['A','B','C'],
+			  ['D']];
+
+
+var row = 1, column = 1;
+var start = keypad[row][column];
+for (var i = 0; i < instructionArray.length;i++){
+	var currentLine = instructionArray[i];
+	for (var x = 0; x < currentLine.length;x++){
+		var currentInstruction = currentLine[x];
+
+		//NOT WORKING - change from checking for values to checking lengths of array?
+		if (currentInstruction === 'U' && row != 0 && keypad2[row][column] != 9 && keypad2[row][column] != 5 && keypad2[row][column] != 2 && keypad2[row][column] != 4){
+			row-=1;
+		}else if (currentInstruction === 'D' && row != 4 && keypad2[row][column] != 9 && keypad2[row][column] != 5 && keypad2[row][column] != 'A' && keypad2[row][column] != 'B'){
+			row+=1;
+		}else if (currentInstruction === 'L' && column != 0 && keypad2[row][column] != 1 && keypad2[row][column] != 2 && keypad2[row][column] != 5 && keypad2[row][column] != 'A' && keypad2[row][column] != 'D'){
+			column-=1;
+		}else if (currentInstruction === 'R' && column != 4 && keypad2[row][column] != 1 && keypad2[row][column] != 4 && keypad2[row][column] != 9 && keypad2[row][column] != 'C' && keypad2[row][column] != 'D'){
+			column+=1;
+		}
+		
+	}
+	console.log(keypad2[row][column]);
+}
