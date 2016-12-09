@@ -25,8 +25,7 @@ for (var i = 0; i < instructionArray.length;i++){
 	var currentLine = instructionArray[i];
 	for (var x = 0; x < currentLine.length;x++){
 		var currentInstruction = currentLine[x];
-
-		//
+		// This conditional block ensures executes movement after checking to make sure the instruction makes a change to the position
 		if (currentInstruction === 'U' && row != 0 && noUp.indexOf(keypad2[row][column]) == -1){
 			//determines if row above is smaller or larger and adjusts the column index accordingly
 			if (keypad2[row].length > keypad2[row-1].length){
