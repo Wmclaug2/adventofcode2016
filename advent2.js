@@ -6,32 +6,49 @@ var instructionArray = instructions.split(',');
 var keypad = [[1,2,3],
 			  [4,5,6],
 			  [7,8,9]];
-
+//Representation for keypad on second section
 var keypad2 = [[1],
-			 [2,3,4],
-		   [5,6,7,8,9],
+		   [2,  3,  4],
+	   [5  ,6,  7,  8, 9],
 		  ['A','B','C'],
 			  ['D']];
+//determine which values will no allow for movement
+var noUp = [1,2,4,5,9];
+var noDown = [5,'A','D','C',9];
+var noRight = [1,4,9,'C','D'];
+var noLeft = [1,2,5,'A','D'];
 
-
-var row = 1, column = 1;
-var start = keypad[row][column];
+//initialize starting 
+var row = 2, column = 0;
+var start = keypad2[row][column];
 for (var i = 0; i < instructionArray.length;i++){
 	var currentLine = instructionArray[i];
 	for (var x = 0; x < currentLine.length;x++){
 		var currentInstruction = currentLine[x];
 
-		//NOT WORKING - change from checking for values to checking lengths of array?
-		if (currentInstruction === 'U' && row != 0 && keypad2[row][column] != 9 && keypad2[row][column] != 5 && keypad2[row][column] != 2 && keypad2[row][column] != 4){
+		//
+		if (currentInstruction === 'U' && row != 0 && noUp.indexOf(keypad2[row][column]) == -1){
+			//determines if row above is smaller or larger and adjusts the column index accordingly
+			if (keypad2[row].length > keypad2[row-1].length){
+				column-=1;
+			}else if(keypad2[row].length < keypad2[row-1].length){
+				column+=1;
+			}
 			row-=1;
-		}else if (currentInstruction === 'D' && row != 4 && keypad2[row][column] != 9 && keypad2[row][column] != 5 && keypad2[row][column] != 'A' && keypad2[row][column] != 'B'){
+		}else if (currentInstruction === 'D' && row != 4 && noDown.indexOf(keypad2[row][column]) == -1){
+			//determines if row below is smaller or larger and adjusts the column index accordingly
+			if (keypad2[row].length > keypad2[row+1].length){
+				column-=1;
+			}else if(keypad2[row].length < keypad2[row+1].length){
+				column+=1;
+			}
 			row+=1;
-		}else if (currentInstruction === 'L' && column != 0 && keypad2[row][column] != 1 && keypad2[row][column] != 2 && keypad2[row][column] != 5 && keypad2[row][column] != 'A' && keypad2[row][column] != 'D'){
+		}else if (currentInstruction === 'L' && column != 0 && noLeft.indexOf(keypad2[row][column]) == -1){
 			column-=1;
-		}else if (currentInstruction === 'R' && column != 4 && keypad2[row][column] != 1 && keypad2[row][column] != 4 && keypad2[row][column] != 9 && keypad2[row][column] != 'C' && keypad2[row][column] != 'D'){
+		}else if (currentInstruction === 'R' && column != 4 && noRight.indexOf(keypad2[row][column]) == -1){
 			column+=1;
-		}
-		
+		}	
 	}
+	//log the outcome after each row of instructions has been completed
 	console.log(keypad2[row][column]);
 }
